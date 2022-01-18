@@ -1,0 +1,25 @@
+<?php require_once __DIR__ . '/base.phtml'; ?>
+
+<body class="bg-light" xmlns="http://www.w3.org/1999/html">
+    <?php require_once __DIR__ .'/header.phtml'; ?>
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-8 text-left">
+                <div class="alert alert-<?= $data['type'] ?? 'danger' ?>" role="alert">
+                    <?= $data['error']; ?>
+                </div>
+            </div>
+        </div>
+
+        <?php if (isset($data['redirect'])): ?>
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-8 text-center">
+                <a class="btn btn-outline-secondary" href="<?= $data['redirect'] ?>" role="button">Back</a>
+           </div>
+        </div>
+        <?php endif; ?>
+    </div>
+</body>
+
+<?php require_once __DIR__ . '/footer.phtml'; ?>

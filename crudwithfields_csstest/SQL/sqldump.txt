@@ -1,0 +1,149 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 14, 2022 at 03:10 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.26
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `test_db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guests`
+--
+
+CREATE TABLE `guests` (
+  `id` int(11) NOT NULL,
+  `email` text NOT NULL,
+  `hash` text NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `guests`
+--
+
+INSERT INTO `guests` (`id`, `email`, `hash`, `created_at`, `updated_at`) VALUES
+(6, 'admin2@example.com', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `survey`
+--
+
+CREATE TABLE `survey` (
+  `id` int(11) NOT NULL,
+  `customer_name` text NOT NULL,
+  `customer_email` text NOT NULL,
+  `customer_mobile` varchar(255) NOT NULL,
+  `poNum` varchar(255) NOT NULL,
+  `site_name` varchar(255) NOT NULL,
+  `street1` varchar(255) NOT NULL,
+  `postcode` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `county` varchar(255) NOT NULL,
+  `current_machine` varchar(255) NOT NULL,
+  `ordered_machine` varchar(255) NOT NULL,
+  `q1` text DEFAULT NULL,
+  `q2` text DEFAULT NULL,
+  `q3` text DEFAULT NULL,
+  `q4` varchar(255) NOT NULL,
+  `q5` varchar(255) NOT NULL,
+  `q6` varchar(255) NOT NULL,
+  `q7` varchar(255) NOT NULL,
+  `q8` varchar(255) NOT NULL,
+  `q9` varchar(255) NOT NULL,
+  `q10` varchar(255) NOT NULL,
+  `q11` varchar(255) NOT NULL,
+  `q12` varchar(255) NOT NULL,
+  `suggestions` varchar(255) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` text NOT NULL,
+  `password` text NOT NULL,
+  `role` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
+(1, 'admin', '$2y$10$AddnUGlBy3iKD8JmfrsTuOFkklcK38cy94lvy19b0/eUkYbtUN096', 'ADMIN'),
+(3, 'user', '$2y$10$kTv0XacUu9aIngIs2b5uweSrSPyqWLKkaQtThE3RgVaKr.CXYfKt.', 'USER');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `guests`
+--
+ALTER TABLE `guests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `survey`
+--
+ALTER TABLE `survey`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `guests`
+--
+ALTER TABLE `guests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `survey`
+--
+ALTER TABLE `survey`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

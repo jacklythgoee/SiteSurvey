@@ -1,0 +1,10 @@
+.container {
+  max-width: 960px;
+}
+
+img.spacer {
+  margin-left: 5px;
+}
+#overview-bg{
+  background-color: #C2D8F3;
+}

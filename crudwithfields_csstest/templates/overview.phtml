@@ -1,0 +1,78 @@
+<?php require_once __DIR__ . '/base.phtml'; ?>
+
+<body id="overview-bg">
+    <?php require_once __DIR__ .'/header.phtml'; ?>
+
+    <div class="container">
+        <main>
+            <div class="row">
+                <div class="col-md-8 col-lg-8">
+                    <h4 class="mb-3">Submitted Surveys</h4>
+                </div>
+                <div class="col col-lg-4 text-end">
+                    <a class="btn btn-sm btn-primary" href="create.php" role="button">New</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <?php if (isset($data['flash']['message'])): ?>
+                    <div class="alert alert-<?= $data['flash']['type'] ?? 'success' ?>" role="alert">
+                        <?= $data['flash']['message'] ?>
+                    </div>
+                    <?php endif; ?>
+                    <table class="table bg-light table-striped table-boredered table-hover rounded">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>PO Number</th>
+                            <th>Site Name</th>
+                            <th>Date Created</th>
+                            <th>Last Updated</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($data['records'] as $row): ?>
+                            <?php if(isset($data['flash']['id']) && (int) $row['id'] === $data['flash']['id']): ?><tr class="table-success"><?php else: ?><tr><?php endif; ?>
+                            <td><?= $row['id'] ?></td>
+                            <td><?= $row['poNum'] ?></td>
+                            <td><?= $row['site_name'] ?></td>
+                            <td><?= $row['created_at'] ? (new DateTime($row['created_at']))->format('Y-m-d H:i:s') : '' ?></td>
+                            <td><?= $row['updated_at'] ? (new DateTime($row['created_at']))->format('Y-m-d H:i:s') : '' ?></td>
+                            <td>
+                                
+                                <a href="edit.php?id=<?= $row['id'] ?>&page=<?= $data['currentPage'] ?>"><img src="img/pencil-square.svg" title="edit" alt="edit" /></a>
+                                <?php if ($_SESSION['userRole'] === 'ADMIN'): ?>
+                                <a onclick="return confirm_delete(<?= $row['id'] ?>);" href="delete.php?id=<?= $row['id'] ?>&page=<?= $data['currentPage'] ?>"><img src="img/trash.svg" class="spacer" title="delete" alt="delete" /></a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <?php if ($data['maxPages'] > 1): ?>
+                <div class="col-md-12 col-lg-12">
+                    <nav aria-label="Navigation" >
+                        <ul class="pagination pagination-sm justify-content-center">
+                            <?php for($i=$data['startPage']; $i<=$data['endPage']; $i++): ?>
+                            <li class="page-item<?= $i === $data['currentPage'] ? ' active': '' ?>"><a class="page-link" href="index.php?page=<?= $i ?>"><?= $i ?></a></li>
+                            <?php endfor; ?>
+                        </ul>
+                    </nav>
+                </div>
+                <?php endif; ?>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function confirm_delete(id) {
+            return confirm('Are you sure you want to delete record with id ' + id + '?');
+        }
+    </script>
+</body>
+
+<?php require_once __DIR__ . '/footer.phtml'; ?>
