@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This block is used to suppress errors about missing variable in PHPStorm
+ * @var PDO $db
+ */
+
 require_once __DIR__ . '/../bootstrap.php';
 
 if (!isset($_SESSION['userRole'])) {
@@ -7,7 +12,7 @@ if (!isset($_SESSION['userRole'])) {
     exit;
 }
 
-if ($_SESSION['userRole'] == 'ADMIN'){
+if ($_SESSION['userRole'] !== 'ADMIN') {
     header("Location:index.php");
     exit;
 }
@@ -121,7 +126,12 @@ try {
 // Template data
 $data = [
     'title' => 'Survey - Edit',
-    'extra_css' => 'overview.css',
+    'extra_css' => [
+        'overview.css',
+        'create.css',
+        'style.css',
+        'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+    ],
     'action' => 'edit.php',
     'button' => 'Update',
     'currentPage' => $_GET['page'] ?? 1,

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This block is used to suppress errors about missing variable in PHPStorm
+ * @var PDO $db
+ */
+
 require_once __DIR__ . '/../bootstrap.php';
 
 if (isset($_SESSION['userRole'])) {
@@ -110,7 +115,11 @@ if (isset($_POST['hash'])) {
 // Template data
 $data = [
     'title' => 'Survey - Create',
-    'extra_css' => 'overview.css',
+    'extra_css' => [
+        'overview.css',
+        'style.css',
+        'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+    ],
     'action' => 'guest.php?hash=' . $hash,
     'button' => 'Create',
     'hash' => $guest['hash'],
@@ -119,8 +128,6 @@ $data = [
 ];
 
 require_once __DIR__ . '/../templates/detail.phtml';
-
-
 
 // guest link
 // http://localhost/guest.php?hash=hash

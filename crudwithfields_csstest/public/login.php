@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This block is used to suppress errors about missing variable in PHPStorm
+ * @var PDO $db
+ */
+
 require_once __DIR__ . '/../bootstrap.php';
 
 $error = null;
@@ -17,7 +22,9 @@ if (isset($_POST['username'], $_POST['password'])) {
 // Template data
 $data = [
     'title' => 'Survey - Login',
-    'extra_css' => 'signin.css',
+    'extra_css' => [
+        'login.css',
+    ],
     'error' => $error,
 ];
 
