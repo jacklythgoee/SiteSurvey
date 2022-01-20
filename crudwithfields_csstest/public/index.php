@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This block is used to suppress errors about missing variable in PHPStorm
+ * @var PDO $db
+ */
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../bootstrap.php';
@@ -35,7 +40,10 @@ if ($endPage > $maxPage) {
 // Template data
 $data = [
     'title' => 'Survey - Overview',
-    'extra_css' => 'overview.css',
+    'extra_css' => [
+        'overview.css',
+        'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+    ],
     'maxPages' => getSurveyPages($db),
     'startPage' => $startPage,
     'endPage' => $endPage,

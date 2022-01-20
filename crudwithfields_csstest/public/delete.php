@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This block is used to suppress errors about missing variable in PHPStorm
+ * @var PDO $db
+ */
+
 require_once __DIR__ . '/../bootstrap.php';
 
 if (!isset($_SESSION['userRole'])) {
