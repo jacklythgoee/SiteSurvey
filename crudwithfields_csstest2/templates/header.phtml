@@ -2,21 +2,21 @@
 <div id="top-bar">
 	<nav>
 		<div class="top-container">
-        <?php if(isset($_SESSION['username'])): ?>
+			<?php if(isset($_SESSION['username'])): ?>
 
-		<ul class="phone-list">
-			<li><a class="phone" href="tel:01889272307">Contact Help: +44 (0)1889272307</a></li> 
-		</ul>
-        <ul class="logout-list">
+			<ul class="phone-list">
+				<li><a class="phone" href="tel:01889272307">Contact Help: +44 (0)1889272307</a></li> 
+			</ul>
+			<ul class="logout-list">
 
-            <li><a>[User-<?= ucfirst($_SESSION['username']) ?>] &nbsp&nbsp </a></li>
+				<li><a>[User-<?= ucfirst($_SESSION['username']) ?>] &nbsp&nbsp </a></li>
 
-			<li><?php if(isset($data['currentPage'])): ?> <a class="backBtn" href="index.php?page=<?= $data['currentPage'] ?>" role="button">Back</a> <?php endif; ?></li>
+				<li><?php if(isset($data['currentPage'])): ?> <a class="backBtn" href="index.php?page=<?= $data['currentPage'] ?>" role="button">Back</a> <?php endif; ?></li>
 
-            <li><a class="logout" href="logout.php">Logout</a></li>
+				<li><a class="logout" href="logout.php">Logout</a></li>
 
-        </ul>
-        <?php endif; ?>
+			</ul>
+			<?php endif; ?>
 		</div>
 	</nav>
 </div>
