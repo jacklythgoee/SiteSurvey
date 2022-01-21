@@ -1,0 +1,297 @@
+<?php require_once __DIR__ . '/base.phtml'; ?>
+
+<body>
+    <div class="container">
+        <?php if (isset($data['error'])): ?>
+        <div class="row g-3 ErrorMessage">
+            <div class="error"><?= $data['error'] ?></div>
+        </div>
+        <?php endif; ?>
+
+        <!-- Form Start -->
+        <form class="row g-3" id="surveyForm" action="<?= $data['action'] ?>" method="post">
+            <?php if (isset($data['record']['id'])): ?>
+                <input type="hidden" name="id" value="<?= $data['record']['id'] ?>"/>
+            <?php endif; ?>
+            <?php if (isset($data['currentPage'])): ?>
+                <input type="hidden" name="page" value="<?= $data['currentPage'] ?>"/>
+            <?php endif; ?>
+            <?php if (isset($data['hash'])): ?>
+                <input type="hidden" name="hash" value="<?= $data['hash'] ?>"/>
+            <?php endif; ?>
+
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+
+            <!-- One "tab" for each step in the form: -->
+            <!-- Tab 1 Start -->
+            <div class="tab">
+                <h1>Contact & Site Details</h1>
+                <!-- Row 1 Start -->
+                <div class="row">
+                    <div class="col-md-7">
+                        <label for="site_name" class="form-label">Site Name*</label>
+                        <input type="text" class="form-control" id="site_name" name="site_name" value="<?= $data['record']['site_name'] ?? '' ?>" placeholder="Enter Site Name" oninput="this.className = ''" required><br>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="poNum" class="form-label">PO Number*</label>
+                        <input type="text" class="form-control" id="poNum" name="poNum" value="<?= $data['record']['poNum'] ?? '' ?>" placeholder="Enter PO Number" oninput="this.className = ''" required><br>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="customer_name" class="form-label">Contact Name*</label>
+                        <input type="text" class="form-control" id="customer_name" name="customer_name" value="<?= $data['record']['customer_name'] ?? '' ?>" placeholder="Enter Contact Name" oninput="this.className = ''" required>
+                    </div>
+
+                    <div class="col-md-7">
+                        <label for="customer_email" class="form-label">Email Address*</label>
+                        <input type="email" class="form-control" id="customer_email" name="customer_email" value="<?= $data['record']['customer_email'] ?? '' ?>" placeholder="Enter Email" oninput="this.className = ''" required><br>
+                    </div>
+
+                    <div class="col-4">
+                        <label for="customer_mobile" class="form-label">Contact Number*</label>
+                        <input type="tel" class="form-control" id="customer_mobile" name="customer_mobile" value="<?= $data['record']['customer_mobile'] ?? '' ?>" placeholder="Enter Contact Number" oninput="this.className = ''" required> <br>
+                    </div>
+
+                    <div class="col-8">
+                        <label for="street1" class="form-label">Address*</label>
+                        <input type="text" class="form-control" id="street1" name="street1" value="<?= $data['record']['street1'] ?? '' ?>" placeholder="Address" oninput="this.className = ''" required>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="city" class="form-label">City/Town*</label>
+                        <input type="text" class="form-control" id="city" name="city" value="<?= $data['record']['city'] ?? '' ?>" placeholder="City/Town" oninput="this.className = ''" required>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="county" class="form-label">County*</label>
+                        <input type="text" class="form-control" id="county" name="county" value="<?= $data['record']['county'] ?? '' ?>" oninput="this.className = ''" placeholder="County">
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="postcode" class="form-label">Postcode*</label>
+                        <input type="text" class="form-control" id="postcode" name="postcode" value="<?= $data['record']['postcode'] ?? '' ?>" placeholder="Postcode" oninput="this.className = ''" required> <br>
+                    </div>
+                </div>
+                <!-- Row 1 End -->
+            </div>
+            <!-- Tab 1 End -->
+
+            <!-- Tab 2 Start -->
+            <div class="tab">
+                <h1>Questions</h1>
+                <!-- Row 2 Start -->
+                <div class="row">
+                    <div class="col-12">
+                        <h6 for="current_machine">1. What is your Current Machine?</h6>
+                        <input type="text" class="form-control" id="current_machine" name="current_machine" value="<?= $data['record']['current_machine'] ?? '' ?>" oninput="this.className = ''" placeholder="Leave blank if none"><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="ordered_machine">2. What Machine did you Order?*</h6>
+                        <input type="text" class="form-control" id="ordered_machine" name="ordered_machine" value="<?= $data['record']['ordered_machine'] ?? '' ?>" placeholder="Machine(s) Ordered" oninput="this.className = ''" required> <br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q1">
+                            3. Are you aware of the Dimensions of the Machine(s) Ordered?
+                            <a href="assets/guides/size-reference.pdf#page=1" target="_blank"><i class="fas fa-question-circle"></i></a>
+                        </h6>
+                        <select class="form-select form-select-sm" name="q1">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q1']) && $data['record']['q1'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q1']) && $data['record']['q1'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q2">
+                            4. Are you aware of the Capacity of the Machine(s) Ordered?
+                            <a href="assets/guides/website-resources.pdf#page=1" target="_blank"><i class="fas fa-question-circle"></i></a>
+                        </h6>
+                        <select class="form-select form-select-sm" name="q2">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q2']) && $data['record']['q2'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q2']) && $data['record']['q2'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q3">
+                            5. Are you aware that the Maximum Drain Height is <i>600mm</i> up from the bottom of Machine(s)?
+                            <a href="assets/guides/website-resources.pdf#page=2" target="_blank"><i class="fas fa-question-circle"></i></a>
+                        </h6>
+                        <select class="form-select form-select-sm" name="q3">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q3']) && $data['record']['q3'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q3']) && $data['record']['q3'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q4">
+                            6. Are you aware of the Power Supply required for the Machine(s)?
+                            <a href="assets/guides/website-resources.pdf#page=3" target="_blank"><i class="fas fa-question-circle"></i></a>
+                        </h6>
+                        <select class="form-select form-select-sm" name="q4">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q4']) && $data['record']['q4'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q4']) && $data['record']['q4'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q5">
+                            7. Is there a suitable Water Supply & Waste within <i>1metre</i> of the location?
+                            <a href="assets/guides/website-resources.pdf#page=2" target="_blank"><i class="fas fa-question-circle"></i></a>
+                        </h6>
+                        <select class="form-select form-select-sm" name="q5">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q5']) && $data['record']['q5'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q5']) && $data['record']['q5'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+                    <br>
+
+                    <div class="col-12">
+                        <h6 for="q6">
+                            8. Is your Site located in a Hard Water area?
+                            <a href="https://www.aquacure.co.uk/knowledge-base/uk-hard-water-map/" target="_blank"><i class="fas fa-question-circle"></i></a>
+                        </h6>
+                        <select class="form-select form-select-sm" name="q6">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q6']) && $data['record']['q6'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q6']) && $data['record']['q6'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br>
+                    </div>
+                </div>
+                <!-- Row 2 End -->
+            </div>
+            <!-- Tab 2 End -->
+
+            <!-- Tab 3 Start -->
+            <div class="tab">
+                <h1>Site Delivery Info</h1>
+
+                <!-- Row 3 Start -->
+                <div class="row">
+                    <div class="col-12">
+                        <h6 for="q7">9. What floor is the Machine(s) going to be located on?</h6>
+                        <input type="text" class="form-control" id="q7" name="q7" value="<?= $data['record']['q7'] ?? '' ?>" placeholder="Please enter what floor your machine will be located on"> <br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q8">10. Does the Machine Require lifting over a Bar/Countertop?</h6>
+                        <select class="form-select form-select-sm" name="q8">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q8']) && $data['record']['q8'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q8']) && $data['record']['q8'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q9">11. Is there clear Access to the position of the Machine(s)&nbsp&nbsp&nbsp(e.g. Access through doors)</h6>
+                        <select class="form-select form-select-sm" name="q9">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q9']) && $data['record']['q9'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q9']) && $data['record']['q9'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q10">12. Are you aware or do you accept that Delivery will be the day <u>before</u> Install and collection of any old machine will be the day <u>after</u> install?</h6>
+                        <select class="form-select form-select-sm" name="q10">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q10']) && $data['record']['q10'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q10']) && $data['record']['q10'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q11">13. Can you accept Delivery/Install between 8am & 6pm on Weekdays?</h6>
+                        <select class="form-select form-select-sm" name="q11">
+                            <option selected>--Select--</option>
+                            <option value="YES"<?= isset($data['record']['q11']) && $data['record']['q11'] === "YES" ? ' selected' : '' ?>>
+                                Yes
+                            </option>
+                            <option value="NO"<?= isset($data['record']['q11']) && $data['record']['q11'] === "NO" ? ' selected' : '' ?>>
+                                No
+                            </option>
+                        </select><br><br>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 for="q12">14. Are there any Restrictions on Vehicle Size or Time restrictions in the area? (If Yes, Please Elaborate)</h6>
+                        <input type="text" class="form-control" id="q12" name="q12" value="<?= $data['record']['q12'] ?? '' ?>" placeholder="Please enter any restrictions to your site">
+                    </div>
+
+                    <div class="col-12">
+                        <hr>
+                        <h4 for="suggestions">Added Notes / Suggestions</h4>
+                        <input type="text" class="form-control" id="suggestions" name="suggestions" value="<?= $data['record']['suggestions'] ?? '' ?>" placeholder="Leave blank if none"><br>
+                    </div>
+
+                    <div class="col col-lg-4">
+                        <button type="submit" class="btn btn-primary mb-3"><?= $data['button'] ?></button>
+                    </div>
+                </div>
+                <!-- Row 3 End -->
+            </div>
+            <!-- Tab 3 End -->
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button class="btn btn-primary" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button class="btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+
+            <!-- Circles which indicates the steps of the form: -->
+            
+        </form> <!--Form End -->
+    </div>
+    
+    <script src="js/tabs.js"></script>
+</body>
+
+<?php require_once __DIR__ . '/footer.phtml'; ?>
