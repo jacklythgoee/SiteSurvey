@@ -1,0 +1,25 @@
+<?php require_once __DIR__ . '/base.phtml'; ?>
+
+<body id="background">
+    <img class="logo" src="img/classeqlogo.png" alt="logo">
+		<form autocomplete="off" class="box" action="/login.php" method="post">
+			<h1>Login</h1>
+			<div class="ErrorMessage">
+				<?php if (isset($data['error'])): ?>
+				<div class="error"><?= $data['error'] ?></div>
+				<?php endif; ?>
+			</div>
+
+			<input type="text" name="username" placeholder="Username">
+			<input type="password" name="password" placeholder="Password">
+			<input type="submit" name="" value="Login">
+		</form>
+</body>
+
+<?php require_once __DIR__ . '/footer.phtml'; ?>
+
+<!-- •	templates with bootstrap styling
+•	flash data support to show update/create/delete notifications,
+•	authentication (admin/admin and user/user),
+•	full CRUD support based on a user role (a normal user may not edit or remove data),
+•	Single-use guest support with hashes (hashes can be found in the "database.php" file), -->
